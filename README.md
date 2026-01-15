@@ -4,9 +4,9 @@ A beautiful, interactive Valentine's Day advent calendar website built with Reac
 
 ## Features
 
-- 🎁 14-day advent calendar with daily rewards
+- 🎁 7-day advent calendar with daily rewards
 - 💝 Interactive "Will you be my Valentine?" question
-- 🧸 Beautiful teddy bear illustration
+- 🧸 Beautiful Snoopy illustration
 - ✨ Elegant pink and red color scheme
 - 📱 Fully responsive design
 

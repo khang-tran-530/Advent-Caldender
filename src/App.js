@@ -10,7 +10,7 @@ const FloatingHearts = memo(() => {
       left: Math.random() * 100,
       delay: Math.random() * 20,
       duration: 10 + Math.random() * 8, // Adjust this: lower = faster, higher = slower
-      size: 20 + Math.random() * 30,
+      size: 10 + Math.random() * 15,
       opacity: 0.3 + Math.random() * 0.4
     }));
   }, []);

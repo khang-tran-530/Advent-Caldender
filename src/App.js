@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, memo } from 'react';
-import snoopyImage from './images/snoopy.png'; 
+import snoopyImage from './images/snoopy.png';
+import AdventCalendar from './AdventCalendar';
 import './App.css';
 
 // Floating Hearts component - isolated to prevent re-renders
@@ -78,6 +79,7 @@ function App() {
   const [selectedButton, setSelectedButton] = useState(null);
   const [daysUntilValentine, setDaysUntilValentine] = useState(0);
   const [noButtonPosition, setNoButtonPosition] = useState({ top: 'auto', left: 'auto', position: 'static' });
+  const [currentPage, setCurrentPage] = useState('home'); // 'home' or 'advent'
 
   useEffect(() => {
     const calculateDaysUntilValentine = () => {
@@ -110,6 +112,7 @@ function App() {
 
   const handleYesClick = () => {
     setSelectedButton('yes');
+    setCurrentPage('advent');
   };
 
   const handleNoHover = () => {
@@ -132,6 +135,12 @@ function App() {
     setSelectedButton('no');
   };
 
+  // Advent Calendar Page
+  if (currentPage === 'advent') {
+    return <AdventCalendar daysUntilValentine={daysUntilValentine} />;
+  }
+
+  // Home Page
   return (
     <div className="app">
       {/* Floating Hearts Background */}
@@ -153,7 +162,7 @@ function App() {
 
       {/* Main Content */}
       <main className="main-content">
-        {/* Teddy Bear Image Container */}
+        {/* Image Container */}
         <div className="image-container">
           <svg className="heart-icon decorative-heart-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>

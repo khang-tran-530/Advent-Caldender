@@ -341,7 +341,8 @@
 
 .advent-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: 3fr 3fr 3fr 3fr;
   grid-template-rows: 1fr 1fr;
   gap: 12px;
   padding: 0 15px;
@@ -355,27 +356,27 @@
 
 .advent-calendar-grid > .advent-day-card:nth-child(1),
 .advent-calendar-grid > .advent-day-card:nth-child(2),
-.advent-calendar-grid > .advent-day-card:nth-child(3),
-.advent-calendar-grid > .advent-day-card:nth-child(4) {
+.advent-calendar-grid > .advent-day-card:nth-child(3) {
   grid-row: 1;
 }
 
+
+.advent-calendar-grid > .advent-day-card:nth-child(4),
 .advent-calendar-grid > .advent-day-card:nth-child(5),
-.advent-calendar-grid > .advent-day-card:nth-child(6),
-.advent-calendar-grid > .advent-day-card:nth-child(7) {
+.advent-calendar-grid > .advent-day-card:nth-child(6){
   grid-row: 2;
-  grid-column: span 1;
+  grid-column: span 3;
 }
 
-.advent-calendar-grid > .advent-day-card:nth-child(5) {
+.advent-calendar-grid > .advent-day-card:nth-child(4) {
   grid-column: 1;
 }
 
-.advent-calendar-grid > .advent-day-card:nth-child(6) {
+.advent-calendar-grid > .advent-day-card:nth-child(5) {
   grid-column: 2;
 }
 
-.advent-calendar-grid > .advent-day-card:nth-child(7) {
+.advent-calendar-grid > .advent-day-card:nth-child(6) {
   grid-column: 3;
 }
 
@@ -393,6 +394,8 @@
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
   min-height: 0;
   height: 100%;
+  min-width: 0;
+  width: 100%;
 }
 
 .advent-day-card.open {

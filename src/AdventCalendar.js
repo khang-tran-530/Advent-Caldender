@@ -55,7 +55,7 @@ const FloatingHearts = memo(() => {
 FloatingHearts.displayName = "FloatingHearts";
 
 function AdventCalendar({ daysUntilValentine }) {
-  const [now, setNow] = useState(() => new Date("2025-02-13"));
+  const [now, setNow] = useState(() => new Date()); // For testing, set to Feb 13, 2025
 
   useEffect(() => {
     // Update every 30 seconds (cheap + ensures it flips soon after midnight)

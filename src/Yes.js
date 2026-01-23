@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, memo } from 'react';
-import snoopyImage from './images/snoopy.png';
-import Yes from './Yes';
+import yesImage from './images/myaowl-heart.gif';
+import AdventCalendar from './AdventCalendar';
 import './App.css';
 
 // Floating Hearts component - isolated to prevent re-renders
@@ -10,7 +10,7 @@ const FloatingHearts = memo(() => {
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 20,
-      duration: 9.5 + Math.random() * 3, // Adjust this: lower = faster, higher = slower
+      duration: 0.5 + Math.random(), // Adjust this: lower = faster, higher = slower
       size: 10 + Math.random() * 15,
       opacity: 0.3 + Math.random() * 0.4
     }));
@@ -44,41 +44,10 @@ const FloatingHearts = memo(() => {
 
 FloatingHearts.displayName = 'FloatingHearts';
 
-// Separate NoButton component to prevent re-renders from affecting hearts
-const NoButton = memo(({ onHover, onClick, isSelected, position }) => {
-  return (
-    <>
-      {position.position === 'fixed' ? (
-        <div className="button-placeholder" aria-hidden="true"></div>
-      ) : (
-        <button 
-          className={`button button-no ${isSelected ? 'selected' : ''}`}
-          onMouseEnter={onHover}
-          onClick={onClick}
-        >
-          No
-        </button>
-      )}
-      {position.position === 'fixed' && (
-        <button 
-          className={`button button-no ${isSelected ? 'selected' : ''}`}
-          onMouseEnter={onHover}
-          onClick={onClick}
-          style={position}
-        >
-          No
-        </button>
-      )}
-    </>
-  );
-});
-
-NoButton.displayName = 'NoButton';
 
 function App() {
   const [selectedButton, setSelectedButton] = useState(null);
   const [daysUntilValentine, setDaysUntilValentine] = useState(0);
-  const [noButtonPosition, setNoButtonPosition] = useState({ top: 'auto', left: 'auto', position: 'static' });
   const [currentPage, setCurrentPage] = useState('home'); // 'home' or 'advent'
 
   useEffect(() => {
@@ -112,32 +81,13 @@ function App() {
 
   const handleYesClick = () => {
     setSelectedButton('yes');
-    setCurrentPage('YesPage');
+    setCurrentPage('advent');
   };
 
-  const handleNoHover = () => {
-    // Generate random position within viewport
-    const maxX = window.innerWidth - 200; // Account for button width
-    const maxY = window.innerHeight - 60; // Account for button height
-    
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-    
-    setNoButtonPosition({
-      position: 'fixed',
-      top: `${Math.max(20, randomY)}px`,
-      left: `${Math.max(20, randomX)}px`,
-      zIndex: 1000
-    });
-  };
-
-  const handleNoClick = () => {
-    setSelectedButton('no');
-  };
 
   // Advent Calendar Page
-  if (currentPage === 'YesPage') {
-    return <Yes/>;
+  if (currentPage === 'advent') {
+    return <AdventCalendar daysUntilValentine={daysUntilValentine} />;
   }
 
   // Home Page
@@ -152,12 +102,12 @@ function App() {
           <svg className="heart-icon header-heart-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
-          <h1 className="main-title">Valentine's 2026</h1>
+          <h1 className="main-title">YAYYYYYY!!!!!</h1>
           <svg className="heart-icon header-heart-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </div>
-        <p className="subtitle">{daysUntilValentine} {daysUntilValentine === 1 ? 'DAY' : 'DAYS'} TILL VALENTINE'S</p>
+        <p className="subtitle"> I LOOOOOOOOOOVEEEEEEE YOOOOUUUUUUU</p>
       </header>
 
       {/* Main Content */}
@@ -167,19 +117,14 @@ function App() {
           <svg className="heart-icon decorative-heart-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
-          <div className="image-frame">
-            <img src={snoopyImage} alt="Snoopy with heart" className="main-image" />
+          <div className="second-image-frame">
+            <img src={yesImage} alt="stuff" className="second-image" />
           </div>
           <svg className="heart-icon decorative-heart-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </div>
 
-        {/* Question Section */}
-        <div className="question-section">
-          <h2 className="question">Will you be my Valentine?</h2>
-          <p className="question-subtitle">Every day is a gift when I'm with you ✨</p>
-        </div>
 
         {/* Buttons */}
         <div className="buttons-container">
@@ -187,14 +132,8 @@ function App() {
             className={`button button-yes ${selectedButton === 'yes' ? 'selected' : ''}`}
             onClick={handleYesClick}
           >
-            Yes! ✨
+            Next 
           </button>
-          <NoButton
-            onHover={handleNoHover}
-            onClick={handleNoClick}
-            isSelected={selectedButton === 'no'}
-            position={noButtonPosition}
-          />
         </div>
         
       </main>

@@ -145,6 +145,21 @@
   max-width: 220px;
 }
 
+.second-image-frame {
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Ensures the image doesn't overflow the frame */
+  width: 400px; /* Set equal width and height to make it square */
+  height: auto; /* Let height adjust automatically */
+  aspect-ratio: 1 / 1; /* Enforce a square shape */
+}
+
 .teddy-bear-placeholder {
   width: 100%;
   padding-bottom: 125%;
@@ -169,6 +184,14 @@
   padding-right: 20px;
   object-fit: contain;
 }
+
+.second-image {
+  width: 100%; /* Ensure the image fills the frame */
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio while covering the frame */
+  border-radius: 8px;
+}
+
 
 /* Question Section */
 .question-section {

@@ -138,6 +138,62 @@ function AdventCalendar({ daysUntilValentine }) {
       }
     }
 
+    if (dayNumber === 3) {
+      const today = now;
+      const isDayOneUnlocked =
+        today.getMonth() > START_MONTH_INDEX ||
+        (today.getMonth() === START_MONTH_INDEX &&
+          today.getDate() >= START_DAY_OF_MONTH);
+
+      if (isDayOneUnlocked) {
+        console.log(`Day ${dayNumber} unlocked!`);
+        alert("Day 3 unlocked! Surprise revealed!");
+        return;
+      }
+    }
+
+    if (dayNumber === 4) {
+      const today = now;
+      const isDayOneUnlocked =
+        today.getMonth() > START_MONTH_INDEX ||
+        (today.getMonth() === START_MONTH_INDEX &&
+          today.getDate() >= START_DAY_OF_MONTH);
+
+      if (isDayOneUnlocked) {
+        console.log(`Day ${dayNumber} unlocked!`);
+        alert("Day 4 unlocked! Surprise revealed!");
+        return;
+      }
+    }
+
+    if (dayNumber === 5) {
+      const today = now;
+      const isDayOneUnlocked =
+        today.getMonth() > START_MONTH_INDEX ||
+        (today.getMonth() === START_MONTH_INDEX &&
+          today.getDate() >= START_DAY_OF_MONTH);
+
+      if (isDayOneUnlocked) {
+        console.log(`Day ${dayNumber} unlocked!`);
+        alert("Day 5 unlocked! Surprise revealed!");
+        return;
+      }
+    }
+
+    if (dayNumber === 6) {
+      const today = now;
+      const isDayOneUnlocked =
+        today.getMonth() > START_MONTH_INDEX ||
+        (today.getMonth() === START_MONTH_INDEX &&
+          today.getDate() >= START_DAY_OF_MONTH);
+
+      if (isDayOneUnlocked) {
+        console.log(`Day ${dayNumber} unlocked!`);
+        alert("Day 6 unlocked! Surprise revealed!");
+        return;
+      }
+    }
+
     if (status === "open") {
       console.log(`Opened day ${dayNumber}`);
     }

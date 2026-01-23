@@ -72,35 +72,39 @@ FloatingHearts.displayName = "FloatingHearts";
 
 
 function AdventCalendar({ daysUntilValentine }) {
-  const [now, setNow] = useState(() => new Date("2025-02-8")); // testing date
+  const [now, setNow] = useState(() => new Date("2025-02-9")); // testing date
   //const [now, setNow] = useState(() => new Date()); // real current date
+  const [openedDays, setOpenedDays] = useState(() => {
+        const saved = localStorage.getItem("openedDays");
+        return saved ? JSON.parse(saved) : [];
+    });
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 30_000);
     return () => clearInterval(id);
   }, []);
 
   const unlockedDays = useMemo(() => {
-    const month = now.getMonth();
-    const day = now.getDate();
+        const month = now.getMonth();
+        const day = now.getDate();
 
-    if (month !== START_MONTH_INDEX) return [];
+        // Only unlock during February
+        if (month !== START_MONTH_INDEX) return [];
 
-    const unlockedCount = Math.min(
-      Math.max(day - START_DAY_OF_MONTH + 1, 0),
-      TOTAL_DAYS
-    );
+        const unlockedCount = Math.max(day - START_DAY_OF_MONTH + 1, 0);
 
-    return Array.from({ length: unlockedCount }, (_, i) => i + 1);
-  }, [now]);
+        // Ensure Day 1 is unlocked on February 8th
+        return Array.from({ length: unlockedCount }, (_, i) => i + 1).filter(
+            (dayNumber) => dayNumber >= 1 && dayNumber <= TOTAL_DAYS
+        );
+    }, [now]);
+
+    const getDayStatus = (dayNumber) => {
+        if (openedDays.includes(dayNumber)) return "opened";
+        if (unlockedDays.includes(dayNumber)) return "open";
+        return "locked";
+    };
 
   const unlockedCount = unlockedDays.length;
-
-  const getDayStatus = (dayNumber) => {
-    if (unlockedDays.includes(dayNumber)) return "open";
-    if (dayNumber === unlockedCount + 1 && unlockedCount < TOTAL_DAYS)
-      return "next";
-    return "locked";
-  };
 
   const handleDayClick = (dayNumber) => {
     const status = getDayStatus(dayNumber);

@@ -72,12 +72,8 @@ FloatingHearts.displayName = "FloatingHearts";
 
 
 function AdventCalendar({ daysUntilValentine }) {
-  const [now, setNow] = useState(() => new Date("2025-02-9")); // testing date
+  const [now, setNow] = useState(() => new Date(2025, 1, 9)); // testing date
   //const [now, setNow] = useState(() => new Date()); // real current date
-  const [openedDays] = useState(() => {
-        const saved = localStorage.getItem("openedDays");
-        return saved ? JSON.parse(saved) : [];
-    });
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 30_000);
     return () => clearInterval(id);
@@ -99,10 +95,10 @@ function AdventCalendar({ daysUntilValentine }) {
     }, [now]);
 
     const getDayStatus = (dayNumber) => {
-        if (openedDays.includes(dayNumber)) return "opened";
-        if (unlockedDays.includes(dayNumber)) return "open";
-        return "locked";
+      if (unlockedDays.includes(dayNumber)) return "open";
+      return "locked";
     };
+    
 
   const unlockedCount = unlockedDays.length;
 

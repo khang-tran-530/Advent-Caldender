@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, memo } from 'react';
+import React, { useState , useMemo, memo } from 'react';
 import yesImage from './images/myaowl-heart.gif';
 import AdventCalendar from './AdventCalendar';
 import './App.css';
@@ -47,37 +47,11 @@ FloatingHearts.displayName = 'FloatingHearts';
 
 function App() {
   const [selectedButton, setSelectedButton] = useState(null);
-  const [daysUntilValentine, setDaysUntilValentine] = useState(0);
+  const [daysUntilValentine] = useState(0);
   const [currentPage, setCurrentPage] = useState('home'); // 'home' or 'advent'
 
-  useEffect(() => {
-    const calculateDaysUntilValentine = () => {
-      const today = new Date();
-      const currentYear = today.getFullYear();
-      
-      // Set Valentine's Day for this year
-      let valentineDate = new Date(currentYear, 1, 14); // Month is 0-indexed, so 1 = February
-      
-      // If Valentine's Day has already passed this year, use next year
-      if (today > valentineDate) {
-        valentineDate = new Date(currentYear + 1, 1, 14);
-      }
-      
-      // Calculate the difference in days
-      const timeDiff = valentineDate.getTime() - today.getTime();
-      const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-      
-      setDaysUntilValentine(daysDiff);
-    };
 
-    // Calculate immediately
-    calculateDaysUntilValentine();
 
-    // Update every hour to ensure accuracy
-    const interval = setInterval(calculateDaysUntilValentine, 1000 * 60 * 60);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleYesClick = () => {
     setSelectedButton('yes');
@@ -102,7 +76,7 @@ function App() {
           <svg className="heart-icon header-heart-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
-          <h1 className="main-title">YAYYYYYY!!!!!</h1>
+          <h1 className="main-title">Day One</h1>
           <svg className="heart-icon header-heart-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
@@ -118,13 +92,16 @@ function App() {
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
           <div className="second-image-frame">
-            <img src={yesImage} alt = "" className="second-image" />
+            <img src={yesImage} alt="" className="second-image" />
           </div>
           <svg className="heart-icon decorative-heart-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </div>
-
+        <div className="question-section">
+          <h2 className="question">Will you be my Valentine?</h2>
+          <p className="question-subtitle">Every day is a gift when I'm with you ✨</p>
+        </div>
 
         {/* Buttons */}
         <div className="buttons-container">

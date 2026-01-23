@@ -1,9 +1,6 @@
 import React, { useMemo, useEffect, useState, memo } from "react";
+import DayOne from "./DayOne";
 import "./App.css";
-
-
-//variables
-
 
 /**
  * Unlock schedule:
@@ -17,15 +14,7 @@ const START_DAY_OF_MONTH = 8;
 const END_DAY_OF_MONTH = 13;
 const TOTAL_DAYS = END_DAY_OF_MONTH - START_DAY_OF_MONTH + 1; // 6
 
-
-
-
-
 // Floating Hearts component background
-
-
-
-
 const FloatingHearts = memo(() => {
   const hearts = useMemo(() => {
     return Array.from({ length: 15 }, (_, i) => ({
@@ -66,139 +55,61 @@ const FloatingHearts = memo(() => {
 
 FloatingHearts.displayName = "FloatingHearts";
 
-
-
-// helper functions
-
-
 function AdventCalendar({ daysUntilValentine }) {
-  const [now, setNow] = useState(() => new Date(2025, 1, 9)); // testing date
-  //const [now, setNow] = useState(() => new Date()); // real current date
+  // Use local constructor for testing (prevents timezone shifting)
+  //const [now, setNow] = useState(() => new Date(2025, 1, 9)); // Feb 9, 2025 (local)
+  const [now, setNow] = useState(() => new Date()); // real current date
+
+  // simple page switch (no React Router)
+  const [currentPage, setCurrentPage] = useState("calendar"); // "calendar" | "day1"
+
+  // Update every 30 seconds (keeps it accurate in real mode)
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 30_000);
     return () => clearInterval(id);
   }, []);
 
+  // Which days are unlocked based on date
   const unlockedDays = useMemo(() => {
-        const month = now.getMonth();
-        const day = now.getDate();
+    const month = now.getMonth();
+    const day = now.getDate();
 
-        // Only unlock during February
-        if (month !== START_MONTH_INDEX) return [];
+    // Only unlock during February
+    if (month !== START_MONTH_INDEX) return [];
 
-        const unlockedCount = Math.max(day - START_DAY_OF_MONTH + 1, 0);
+    // Feb 8 => 1 day unlocked, Feb 9 => 2, ...
+    const unlockedCount = Math.min(
+      Math.max(day - START_DAY_OF_MONTH + 1, 0),
+      TOTAL_DAYS
+    );
 
-        // Ensure Day 1 is unlocked on February 8th
-        return Array.from({ length: unlockedCount }, (_, i) => i + 1).filter(
-            (dayNumber) => dayNumber >= 1 && dayNumber <= TOTAL_DAYS
-        );
-    }, [now]);
+    return Array.from({ length: unlockedCount }, (_, i) => i + 1);
+  }, [now]);
 
-    const getDayStatus = (dayNumber) => {
-      if (unlockedDays.includes(dayNumber)) return "open";
-      return "locked";
-    };
-    
+  // Visual status: stays "open" forever once date has passed
+  const getDayStatus = (dayNumber) => {
+    if (unlockedDays.includes(dayNumber)) return "open";
+    return "locked";
+  };
 
   const unlockedCount = unlockedDays.length;
 
+  // Click handler
   const handleDayClick = (dayNumber) => {
     const status = getDayStatus(dayNumber);
-    if (status !== "open" && status !== "next") return;
+    if (status !== "open") return;
 
+    // Day 1 routes to DayOne.js
     if (dayNumber === 1) {
-      const today = now;
-      const isDayOneUnlocked =
-        today.getMonth() > START_MONTH_INDEX ||
-        (today.getMonth() === START_MONTH_INDEX &&
-          today.getDate() >= START_DAY_OF_MONTH);
-
-      if (isDayOneUnlocked) {
-        console.log(`Day ${dayNumber} unlocked!`);
-        alert("Day 1 unlocked! Surprise revealed!");
-        return;
-      }
+      setCurrentPage("day1");
+      return;
     }
 
-    if (dayNumber === 2) {
-      const today = now;
-      const isDayOneUnlocked =
-        today.getMonth() > START_MONTH_INDEX ||
-        (today.getMonth() === START_MONTH_INDEX &&
-          today.getDate() >= START_DAY_OF_MONTH);
-
-      if (isDayOneUnlocked) {
-        console.log(`Day ${dayNumber} unlocked!`);
-        alert("Day 2 unlocked! Surprise revealed!");
-        return;
-      }
-    }
-
-    if (dayNumber === 3) {
-      const today = now;
-      const isDayOneUnlocked =
-        today.getMonth() > START_MONTH_INDEX ||
-        (today.getMonth() === START_MONTH_INDEX &&
-          today.getDate() >= START_DAY_OF_MONTH);
-
-      if (isDayOneUnlocked) {
-        console.log(`Day ${dayNumber} unlocked!`);
-        alert("Day 3 unlocked! Surprise revealed!");
-        return;
-      }
-    }
-
-    if (dayNumber === 4) {
-      const today = now;
-      const isDayOneUnlocked =
-        today.getMonth() > START_MONTH_INDEX ||
-        (today.getMonth() === START_MONTH_INDEX &&
-          today.getDate() >= START_DAY_OF_MONTH);
-
-      if (isDayOneUnlocked) {
-        console.log(`Day ${dayNumber} unlocked!`);
-        alert("Day 4 unlocked! Surprise revealed!");
-        return;
-      }
-    }
-
-    if (dayNumber === 5) {
-      const today = now;
-      const isDayOneUnlocked =
-        today.getMonth() > START_MONTH_INDEX ||
-        (today.getMonth() === START_MONTH_INDEX &&
-          today.getDate() >= START_DAY_OF_MONTH);
-
-      if (isDayOneUnlocked) {
-        console.log(`Day ${dayNumber} unlocked!`);
-        alert("Day 5 unlocked! Surprise revealed!");
-        return;
-      }
-    }
-
-    if (dayNumber === 6) {
-      const today = now;
-      const isDayOneUnlocked =
-        today.getMonth() > START_MONTH_INDEX ||
-        (today.getMonth() === START_MONTH_INDEX &&
-          today.getDate() >= START_DAY_OF_MONTH);
-
-      if (isDayOneUnlocked) {
-        console.log(`Day ${dayNumber} unlocked!`);
-        alert("Day 6 unlocked! Surprise revealed!");
-        return;
-      }
-    }
-
-    if (status === "open") {
-      console.log(`Opened day ${dayNumber}`);
-    }
+    alert(`Day ${dayNumber} unlocked! Surprise revealed!`);
   };
 
   const progressPercent =
-    TOTAL_DAYS === 0
-      ? 0
-      : Math.round((unlockedCount / TOTAL_DAYS) * 100);
+    TOTAL_DAYS === 0 ? 0 : Math.round((unlockedCount / TOTAL_DAYS) * 100);
 
   const subtitleText = (() => {
     if (typeof daysUntilValentine === "number") {
@@ -208,26 +119,21 @@ function AdventCalendar({ daysUntilValentine }) {
     }
 
     if (now.getMonth() !== START_MONTH_INDEX) return "Unlocks Feb 8–13 💘";
-    if (now.getDate() < START_DAY_OF_MONTH)
-      return "First surprise unlocks Feb 8 💘";
-    if (now.getDate() > END_DAY_OF_MONTH)
-      return "All surprises unlocked 💖";
+    if (now.getDate() < START_DAY_OF_MONTH) return "First surprise unlocks Feb 8 💘";
+    if (now.getDate() > END_DAY_OF_MONTH) return "All surprises unlocked 💖";
     return "One new surprise unlocks each day 💘";
   })();
 
   const instructionText = (() => {
-    if (unlockedCount === 0)
-      return `Come back on Feb ${START_DAY_OF_MONTH} 💘`;
+    if (unlockedCount === 0) return `Come back on Feb ${START_DAY_OF_MONTH} 💘`;
     if (unlockedCount >= TOTAL_DAYS) return "All days are open 💖";
     return `Next unlock: Day ${unlockedCount + 1}`;
   })();
 
-
-
-
-  //display return
-
-
+  // IMPORTANT: page switch happens AFTER hooks, BEFORE JSX return
+  if (currentPage === "day1") {
+    return <DayOne onBack={() => setCurrentPage("calendar")} />;
+  }
 
   return (
     <div className="app advent-page">
@@ -265,45 +171,36 @@ function AdventCalendar({ daysUntilValentine }) {
       </div>
 
       <div className="advent-calendar-grid">
-        {Array.from({ length: TOTAL_DAYS }, (_, i) => i + 1).map(
-          (dayNumber) => {
-            const status = getDayStatus(dayNumber);
+        {Array.from({ length: TOTAL_DAYS }, (_, i) => i + 1).map((dayNumber) => {
+          const status = getDayStatus(dayNumber);
 
-            return (
-              <div
-                key={dayNumber}
-                className={`advent-day-card ${status}`}
-                onClick={() => handleDayClick(dayNumber)}
-              >
-                {status === "open" && (
-                  <div className="day-open-badge">OPEN</div>
+          return (
+            <div
+              key={dayNumber}
+              className={`advent-day-card ${status}`}
+              onClick={() => handleDayClick(dayNumber)}
+            >
+              {status === "open" && <div className="day-open-badge">OPEN</div>}
+
+              <div className={`day-icon ${status}`}>
+                {status === "open" ? (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <rect x="3" y="8" width="18" height="12" rx="2" />
+                    <path d="M12 8V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4" />
+                    <path d="M8 12h8" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
                 )}
-
-                <div className={`day-icon ${status}`}>
-                  {status === "open" ? (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      <rect x="3" y="8" width="18" height="12" rx="2" />
-                      <path d="M12 8V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4" />
-                      <path d="M8 12h8" />
-                    </svg>
-                  ) : status === "next" ? (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="8" width="18" height="12" rx="2" />
-                      <path d="M12 8V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4" />
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
-                  )}
-                </div>
-
-                <div className={`day-label ${status}`}>Day {dayNumber}</div>
               </div>
-            );
-          }
-        )}
+
+              <div className={`day-label ${status}`}>Day {dayNumber}</div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

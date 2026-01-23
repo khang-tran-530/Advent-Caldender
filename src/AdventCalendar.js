@@ -74,7 +74,7 @@ FloatingHearts.displayName = "FloatingHearts";
 function AdventCalendar({ daysUntilValentine }) {
   const [now, setNow] = useState(() => new Date("2025-02-9")); // testing date
   //const [now, setNow] = useState(() => new Date()); // real current date
-  const [openedDays, setOpenedDays] = useState(() => {
+  const [openedDays] = useState(() => {
         const saved = localStorage.getItem("openedDays");
         return saved ? JSON.parse(saved) : [];
     });

@@ -1,5 +1,5 @@
 import React, { useState , useMemo, memo } from 'react';
-import yesImage from './images/heart.gif';
+import yesImage from './images/myaowl-heart.gif';
 import AdventCalendar from './AdventCalendar';
 import './App.css';
 
@@ -76,12 +76,12 @@ function App() {
           <svg className="heart-icon header-heart-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
-          <h1 className="main-title">Day One</h1>
+          <h1 className="main-title">Day Two</h1>
           <svg className="heart-icon header-heart-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </div>
-        <p className="subtitle"> A Letter</p>
+        <p className="subtitle"> I LOOOOOOOOOOVEEEEEEE YOOOOUUUUUUU</p>
       </header>
 
       {/* Main Content */}
@@ -99,8 +99,8 @@ function App() {
           </svg>
         </div>
         <div className="question-section">
-          <h2 className="question">I wrote you a heartfelt letter... But you've got to find it!</h2>
-          <p className="question-subtitle">Hint: Where Churro LOVES to get into</p>
+          <h2 className="question">Will you be my Valentine?</h2>
+          <p className="question-subtitle">Every day is a gift when I'm with you ✨</p>
         </div>
 
         {/* Buttons */}
@@ -109,7 +109,7 @@ function App() {
             className={`button button-yes ${selectedButton === 'yes' ? 'selected' : ''}`}
             onClick={handleYesClick}
           >
-            Back
+            Back 
           </button>
         </div>
         

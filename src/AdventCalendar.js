@@ -1,5 +1,10 @@
 import React, { useMemo, useEffect, useState, memo } from "react";
 import DayOne from "./DayOne";
+import DayTwo from "./DayTwo";
+import DayThree from "./DayThree";
+import DayFour from "./DayFour";
+import DayFive from "./DayFive";
+import DaySix from "./DaySix";
 import "./App.css";
 
 /**
@@ -57,7 +62,7 @@ FloatingHearts.displayName = "FloatingHearts";
 
 function AdventCalendar({ daysUntilValentine }) {
   // Use local constructor for testing (prevents timezone shifting)
-  //const [now, setNow] = useState(() => new Date(2025, 1, 9)); // Feb 9, 2025 (local)
+  //const [now, setNow] = useState(() => new Date(2025, 1, 14)); // Feb 9, 2025 (local)
   const [now, setNow] = useState(() => new Date()); // real current date
 
   // simple page switch (no React Router)
@@ -104,6 +109,26 @@ function AdventCalendar({ daysUntilValentine }) {
       setCurrentPage("day1");
       return;
     }
+    if (dayNumber === 2) {
+      setCurrentPage("day2");
+      return;
+    }
+    if (dayNumber === 3) {
+      setCurrentPage("day3");
+      return;
+    }
+    if (dayNumber === 4) {
+      setCurrentPage("day4");
+      return;
+    }
+    if (dayNumber === 5) {
+      setCurrentPage("day5");
+      return;
+    }
+    if (dayNumber === 6) {
+      setCurrentPage("day6");
+      return;
+    }
 
     alert(`Day ${dayNumber} unlocked! Surprise revealed!`);
   };
@@ -134,6 +159,26 @@ function AdventCalendar({ daysUntilValentine }) {
   if (currentPage === "day1") {
     return <DayOne onBack={() => setCurrentPage("calendar")} />;
   }
+  if (currentPage === "day2") {
+    return <DayTwo onBack={() => setCurrentPage("calendar")} />;
+  }
+
+  if (currentPage === "day3") {
+    return <DayThree onBack={() => setCurrentPage("calendar")} />;
+  }
+
+  if (currentPage === "day4") {
+    return <DayFour onBack={() => setCurrentPage("calendar")} />;
+  }
+  if (currentPage === "day5") {
+    return <DayFive onBack={() => setCurrentPage("calendar")} />;
+  }
+  if (currentPage === "day6") {
+    return <DaySix onBack={() => setCurrentPage("calendar")} />;
+  }
+
+
+
 
   return (
     <div className="app advent-page">

@@ -1,5 +1,5 @@
 import React, { useState , useMemo, memo } from 'react';
-import yesImage from './images/myaowl-heart.gif';
+import yesImage from './images/cinnamoroll-sanrio.gif';
 import AdventCalendar from './AdventCalendar';
 import './App.css';
 
@@ -81,7 +81,7 @@ function App() {
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </div>
-        <p className="subtitle"> I LOOOOOOOOOOVEEEEEEE YOOOOUUUUUUU</p>
+        <p className="subtitle"> Candle Lit Bath </p>
       </header>
 
       {/* Main Content */}
@@ -99,8 +99,8 @@ function App() {
           </svg>
         </div>
         <div className="question-section">
-          <h2 className="question">Will you be my Valentine?</h2>
-          <p className="question-subtitle">Every day is a gift when I'm with you ✨</p>
+          <h2 className="question">Get ready for a candle lit bath acompanied by a show prepared by me!</h2>
+          <p className="question-subtitle">I know it's only monday but enjoy this relaxing bath my love</p>
         </div>
 
         {/* Buttons */}
